@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>متجري الإلكتروني</title>
+    <!-- ربط مكتبة Font Awesome لأيقونة الإنستغرام -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* إعدادات الصفحة الأساسية والخلفية البيضاء */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        /* الهيدر العلوي */
+        header {
+            position: relative;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 1px solid #eeeeee;
+        }
+
+        /* اسم البيج في الوسط */
+        .page-title {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #222222;
+        }
+
+        /* أيقونة الإنستغرام على اليسار فوق */
+        .instagram-link {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 2rem;
+            color: #E1306C;
+            transition: opacity 0.3s ease;
+        }
+
+        .instagram-link:hover {
+            opacity: 0.8;
+        }
+
+        /* حاوية المنتجات (الشبكة) */
+        .products-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        /* تصميم حقل المنتج الواحد كـ رابط قابل للضغط */
+        .product-card {
+            background-color: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+            text-decoration: none; /* إزالة الخط تحت النص */
+            display: block;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* مكان صورة الملابس */
+        .product-image {
+            width: 100%;
+            height: 250px;
+            background-color: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888888;
+            font-size: 0.9rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* تفاصيل المنتج (المعلومات) */
+        .product-info {
+            padding: 15px;
+        }
+
+        .product-type {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #111111;
+        }
+
+        .product-price {
+            font-size: 1rem;
+            color: #ff4757;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .delivery-info {
+            font-size: 0.85rem;
+            color: #666666;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="#" target="_blank" class="instagram-link" title="تابعنا على إنستغرام">
+            <i class="fab fa-instagram"></i>
+        </a>
+        <h1 class="page-title">𓍯 Roselle's Elegance 𓍯</h1>
+    </header>
+
+    <main class="products-container">
+        
+        <!-- حقل 1 يحولك لصفحة التفاصيل -->
+        <a href="product-details.html" class="product-card">
+            <div class="product-image">
+                <img src="1.jpg" alt="صورة 1 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">نوع : اقراط واساور</div>
+                <div class="product-price">السعر: 5,000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 2 -->
+        <!-- حقل 2 -->
+<a href="product2.html" class="product-card">
+    <div class="product-image">
+        <!-- ضع رابط الصورة الثانية هنا -->
+        <img src="حقيبه 1.jpg" alt="صورة 2 هنا">
+    </div>
+    <div class="product-info">
+        <div class="product-type">نوع: حقائب</div>
+        <div class="product-price">السعر: 15,000 د.ع</div>
+        <div class="delivery-info">🚚 نوع التوصيل: توصيل لجميع محافظات العراق</div>
+    </div>
+</a></div>
+        </a>
+
+        <!-- حقل 3 -->
+<a href="product3.html" class="product-card">
+    <div class="product-image">
+        <!-- ضع رابط الصورة الثالثة هنا -->
+        <img src="طقم1.jpg" alt="صورة 3 هنا">
+    </div>
+    <div class="product-info">
+        <div class="product-type">نوع الملابس: بنطلون</div>
+        <div class="product-price">السعر: 20,000 د.ع</div>
+        <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+    </div>
+</a>
+        </a>
+
+        <!-- حقل 4 -->
+<a href="product4.html" class="product-card">
+    <div class="product-image">
+        <!-- ضع رابط الصورة الثالثة هنا -->
+        <img src="جنطه1.jpg" alt="صورة 3 هنا">
+    </div>
+    <div class="product-info">
+        <div class="product-type">نوع : حقائب</div>
+        <div class="product-price">السعر: 13,000 د.ع</div>
+        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
+    </div>
+</a>
+
+          <!-- حقل 5 -->
+<a href="product5.html" class="product-card">
+    <div class="product-image">
+        <!-- ضع رابط الصورة الثالثة هنا -->
+        <img src="تشيرت1.jpg" alt="صورة 3 هنا">
+    </div>
+    <div class="product-info">
+        <div class="product-type">نوع : تشيرت</div>
+        <div class="product-price">السعر: 27,000 د.ع</div>
+        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
+    </div>
+            <!-- حقل 6 -->
+<a href="product6.html" class="product-card">
+    <div class="product-image">
+        <!-- ضع رابط الصورة الثالثة هنا -->
+        <img src="حداء1.jpg" alt="صورة 3 هنا">
+    </div>
+    <div class="product-info">
+        <div class="product-type">نوع : احذيه</div>
+        <div class="product-price">السعر: 25,000 د.ع</div>
+        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
+    </div>
+</a>
+
+    </main>
+
+</body>
+</html>
