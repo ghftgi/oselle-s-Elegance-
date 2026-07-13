@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>متجري الإلكتروني</title>
-    <!-- ربط مكتبة Font Awesome لأيقونة الإنستغرام -->
+    <!-- ربط مكتبة Font Awesome لأيقونة الإنستغرام والبحث -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -20,7 +20,7 @@
         /* الهيدر العلوي */
         header {
             position: relative;
-            padding: 30px 20px;
+            padding: 20px 15px;
             text-align: center;
             border-bottom: 1px solid #eeeeee;
         }
@@ -28,18 +28,19 @@
         /* اسم البيج في الوسط */
         .page-title {
             margin: 0;
-            font-size: 2.5rem;
+            font-size: 1.8rem; /* تصغير الحجم ليناسب الهواتف */
             font-weight: bold;
             color: #222222;
+            padding: 0 40px; /* ترك مساحة للأيقونة الجانبية */
         }
 
         /* أيقونة الإنستغرام على اليسار فوق */
         .instagram-link {
             position: absolute;
-            left: 30px;
+            left: 20px;
             top: 50%;
             transform: translateY(-50%);
-            font-size: 2rem;
+            font-size: 1.8rem;
             color: #E1306C;
             transition: opacity 0.3s ease;
         }
@@ -48,14 +49,80 @@
             opacity: 0.8;
         }
 
-        /* حاوية المنتجات (الشبكة) */
+        /* قسم البحث والاقتراحات */
+        .search-section {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 12px 40px 12px 15px;
+            font-size: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 25px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+        }
+
+        .search-input:focus {
+            border-color: #ff4757;
+            box-shadow: 0 2px 10px rgba(255, 71, 87, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 15px;
+            color: #888888;
+            font-size: 1.1rem;
+        }
+
+        /* صندوق الاقتراحات التلقائية */
+        .suggestions-box {
+            position: absolute;
+            top: 100%;
+            right: 20px;
+            left: 20px;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            z-index: 100;
+            display: none;
+            overflow: hidden;
+        }
+
+        .suggestion-item {
+            padding: 12px 15px;
+            cursor: pointer;
+            font-size: 0.95rem;
+            transition: background 0.2s ease;
+            text-align: right;
+        }
+
+        .suggestion-item:hover {
+            background-color: #f7f7f7;
+            color: #ff4757;
+        }
+
+        /* حاوية المنتجات (الشبكة المحسنة للهواتف) */
         .products-container {
             max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
+            margin: 20px auto 40px auto;
+            padding: 0 15px;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); /* تحسين العرض في الشاشات الصغيرة ليظهر عنصرين بجانب بعض في أغلب الهواتف */
+            gap: 15px; /* تقليل الفراغات لتوفير مساحة في الهاتف */
         }
 
         /* تصميم حقل المنتج الواحد كـ رابط قابل للضغط */
@@ -67,7 +134,9 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             transition: transform 0.3s ease;
             text-decoration: none; /* إزالة الخط تحت النص */
-            display: block;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
         }
 
         .product-card:hover {
@@ -77,7 +146,7 @@
         /* مكان صورة الملابس */
         .product-image {
             width: 100%;
-            height: 250px;
+            height: 180px; /* تعديل الارتفاع ليناسب شاشات الهواتف */
             background-color: #f7f7f7;
             display: flex;
             align-items: center;
@@ -95,142 +164,195 @@
 
         /* تفاصيل المنتج (المعلومات) */
         .product-info {
-            padding: 15px;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
         }
 
         .product-type {
-            font-size: 1.1rem;
+            font-size: 0.95rem; /* تعديل حجم الخط للهاتف */
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
             color: #111111;
+            line-height: 1.3;
         }
 
         .product-price {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: #ff4757;
             font-weight: bold;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
 
         .delivery-info {
-            font-size: 0.85rem;
+            font-size: 0.75rem; /* خط أصغر لمعلومات التوصيل لتناسب المساحة */
             color: #666666;
             display: flex;
             align-items: center;
-            gap: 5px;
+            gap: 3px;
+            margin-top: auto;
+        }
+
+        /* شاشات الهواتف الصغيرة جداً */
+        @media (max-width: 380px) {
+            .products-container {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 10px;
+                padding: 0 10px;
+            }
+            .page-title { font-size: 1.5rem; }
+            .product-image { height: 150px; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="#" target="_blank" class="instagram-link" title="تابعنا على إنستغرام">
+        <a href="https://www.instagram.com/roselle__elegance/" target="_blank" class="instagram-link" title="تابعنا على إنستغرام">
             <i class="fab fa-instagram"></i>
         </a>
         <h1 class="page-title">𓍯 Roselle's Elegance 𓍯</h1>
     </header>
 
-    <main class="products-container">
+    <!-- قسم البحث الجديد مضاف بدقة -->
+    <div class="search-section">
+        <div class="search-wrapper">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن منتج (حقائب، قلادة، حذاء...)" autocomplete="off">
+        </div>
+        <!-- صندوق الاقتراحات التلقائية -->
+        <div id="suggestionsBox" class="suggestions-box">
+            <div class="suggestion-item">حقائب</div>
+            <div class="suggestion-item">قلادة</div>
+            <div class="suggestion-item">حذاء</div>
+        </div>
+    </div>
+
+    <main class="products-container" id="productsContainer">
+        
         <!-- حقل 1 -->
-<a href="product14.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="ق1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type">"حقيبة توت هاند باج" (Tote Handbag)</div>
-        <div class="product-price">السعر: 30.000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
-        <!-- حقل 1 -->
-<a href="product13.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="ج1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type"> حقيبة كتف نسائية بتصميم أنيق (مستوحاة من ستايل غوتشي)</div>
-        <div class="product-price">السعر: 25.000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
-         <!-- حقل 1 -->
-<a href="product7.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="م1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type"> "حقيبة كيلي" (Kelly Bag)</div>
-        <div class="product-price">السعر: 20.000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
-        <!-- حقل 1 -->
-<a href="product5.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="ل1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type"> Bowling Bag ​حقيبة بولينغ</div>
-        <div class="product-price">السعر: 25.000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
-           <!-- حقل 1 -->
-<a href="product12.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="طقمم1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type">​🌸 750 قطعه متكامله صندوق منظم وإكسسوارات الشعر العملاق (سيت متكامل)</div>
-        <div class="product-price">السعر: 12.000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
-           <!-- حقل 1 -->
-<a href="product11.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="اكسسوارات1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type">اكسسوارات شعر متكامل 79 قطعه</div>
-        <div class="product-price">السعر:  8.000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
-         <!-- حقل 1 -->
-<a href="product10.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="تنظيف1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type">وسادة تنظيف مكياج </div>
-        <div class="product-price">السعر: 6.000د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
-         <!-- حقل 1 -->
-<a href="product9.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="نظارت1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type">نوع : ​نظارات شمسية بيضاوية بتصميم ريترو كلاسيكي أنيق 🕶️✨</div>
-        <div class="product-price">السعر: 13,000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
-        <!-- حقل 1 -->
-<a href="product8.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="شحاطه1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type">نوع : حذاء</div>
-        <div class="product-price">السعر: 20,000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>  
-        <!-- حقل 1 يحولك لصفحة التفاصيل -->
+        <a href="product15.html" class="product-card">
+            <div class="product-image">
+                <img src="ك1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">قلادة</div>
+                <div class="product-price">السعر: 10.000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 2 -->
+        <a href="product14.html" class="product-card">
+            <div class="product-image">
+                <img src="ق1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">"حقيبة توت هاند باج" (Tote Handbag)</div>
+                <div class="product-price">السعر: 30.000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 3 -->
+        <a href="product13.html" class="product-card">
+            <div class="product-image">
+                <img src="ج1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">حقيبة كتف نسائية بتصميم أنيق (مستوحاة من ستايل غوتشي)</div>
+                <div class="product-price">السعر: 25.000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 4 -->
+        <a href="product7.html" class="product-card">
+            <div class="product-image">
+                <img src="م1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">"حقيبة كيلي" (Kelly Bag)</div>
+                <div class="product-price">السعر: 20.000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 5 -->
+        <a href="product5.html" class="product-card">
+            <div class="product-image">
+                <img src="ل1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">Bowling Bag ​حقيبة بولينغ</div>
+                <div class="product-price">السعر: 25.000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 6 -->
+        <a href="product12.html" class="product-card">
+            <div class="product-image">
+                <img src="طقمم1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">​🌸 750 قطعه متكامله صندوق منظم وإكسسوارات الشعر العملاق (سيت متكامل)</div>
+                <div class="product-price">السعر: 12.000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 7 -->
+        <a href="product11.html" class="product-card">
+            <div class="product-image">
+                <img src="اكسسوارات1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">اكسسوارات شعر متكامل 79 قطعه</div>
+                <div class="product-price">السعر: 8.000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 8 -->
+        <a href="product10.html" class="product-card">
+            <div class="product-image">
+                <img src="تنظيف1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">وسادة تنظيف مكياج</div>
+                <div class="product-price">السعر: 6.000د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 9 -->
+        <a href="product9.html" class="product-card">
+            <div class="product-image">
+                <img src="نظارت1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">نوع : ​نظارات شمسية بيضاوية بتصميم ريترو كلاسيكي أنيق 🕶️✨</div>
+                <div class="product-price">السعر: 13,000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 10 -->
+        <a href="product8.html" class="product-card">
+            <div class="product-image">
+                <img src="شحاطه1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">نوع : حذاء</div>
+                <div class="product-price">السعر: 20,000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
+
+        <!-- حقل 11 -->
         <a href="product-details.html" class="product-card">
             <div class="product-image">
                 <img src="1.jpg" alt="صورة 1 هنا">
@@ -242,49 +364,96 @@
             </div>
         </a>
 
-        <!-- حقل 2 -->
-        <!-- حقل 2 -->
-<a href="product2.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثانية هنا -->
-        <img src="حقيبه 1.jpg" alt="صورة 2 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type">نوع: حقائب</div>
-        <div class="product-price">السعر: 15,000 د.ع</div>
-        <div class="delivery-info">🚚 نوع التوصيل: توصيل لجميع محافظات العراق</div>
-    </div>
-</a></div>
-        </a>
+        <!-- حقل 12 -->
+        <a href="product2.html" class="product-card">
+            <div class="product-image">
+                <img src="حقيبه 1.jpg" alt="صورة 2 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">نوع: حقائب</div>
+                <div class="product-price">السعر: 15,000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: توصيل لجميع محافظات العراق</div>
+            </div>
         </a>
 
-        <!-- حقل 4 -->
-<a href="product4.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="جنطه1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type">نوع : حقائب</div>
-        <div class="product-price">السعر: 13,000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
-</a>
-            <!-- حقل 6 -->
-<a href="product6.html" class="product-card">
-    <div class="product-image">
-        <!-- ضع رابط الصورة الثالثة هنا -->
-        <img src="حداء1.jpg" alt="صورة 3 هنا">
-    </div>
-    <div class="product-info">
-        <div class="product-type">نوع : احذيه</div>
-        <div class="product-price">السعر: 25,000 د.ع</div>
-        <div class="delivery-info">🚚  نوع التوصيل: متوفر لكافة المحافظات</div>
-    </div>
+        <!-- حقل 13 -->
+        <a href="product4.html" class="product-card">
+            <div class="product-image">
+                <img src="جنطه1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">نوع : حقائب</div>
+                <div class="product-price">السعر: 13,000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
 
-</a>
+        <!-- حقل 14 -->
+        <a href="product6.html" class="product-card">
+            <div class="product-image">
+                <img src="حداء1.jpg" alt="صورة 3 هنا">
+            </div>
+            <div class="product-info">
+                <div class="product-type">نوع : احذيه</div>
+                <div class="product-price">السعر: 25,000 د.ع</div>
+                <div class="delivery-info">🚚 نوع التوصيل: متوفر لكافة المحافظات</div>
+            </div>
+        </a>
 
     </main>
+
+    <!-- كود الجافا سكربت لتشغيل ميزة البحث الفوري والاقتراحات التلقائية -->
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const suggestionsBox = document.getElementById('suggestionsBox');
+        const productCards = document.querySelectorAll('.product-card');
+
+        // إظهار صندوق الاقتراحات عند الضغط على حقل البحث
+        searchInput.addEventListener('focus', () => {
+            suggestionsBox.style.display = 'block';
+        });
+
+        // إخفاء صندوق الاقتراحات عند الضغط في أي مكان خارج البحث
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.search-section')) {
+                suggestionsBox.style.display = 'none';
+            }
+        });
+
+        // عند الضغط على أحد الاقتراحات (حقائب، قلادة، حذاء)
+        const suggestionItems = document.querySelectorAll('.suggestion-item');
+        suggestionItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const text = item.textContent;
+                searchInput.value = text;
+                filterProducts(text);
+                suggestionsBox.style.display = 'none';
+            });
+        });
+
+        // الفلترة الفورية والبحث عند كتابة المستخدم يدوياً
+        searchInput.addEventListener('input', (e) => {
+            filterProducts(e.target.value);
+        });
+
+        // دالة الفلترة الذكية للمنتجات
+        function filterProducts(query) {
+            const cleanQuery = query.toLowerCase().trim();
+            
+            productCards.forEach(card => {
+                const productText = card.querySelector('.product-type').textContent.toLowerCase();
+                
+                // للبحث بمرونة أكبر (مثلاً لو كتب "حذاء" تظهر أيضاً "احذيه")
+                if (cleanQuery === '' || productText.includes(cleanQuery) || 
+                    (cleanQuery === 'حقائب' && (productText.includes('حقيب') || productText.includes('جنط'))) ||
+                    (cleanQuery === 'حذاء' && productText.includes('احذيه'))) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
 
 </body>
 </html>
